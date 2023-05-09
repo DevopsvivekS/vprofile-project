@@ -76,7 +76,10 @@ pipeline {
                    -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml'''
                 }
 
-                timeout(time: 10, unit: 'MINUTES') {
+		    timeout(time: 10, unit: 'MINUTES'){
+			    sh ‘mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar’
+		    }
+		   timeout(time: 2, unit: ‘MINUTES’) {
                     waitForQualityGate abortPipeline: true
                 }
             }
